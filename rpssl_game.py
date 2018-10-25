@@ -19,12 +19,8 @@ def choice_to_number(choice):
 
     # TODO: Implement
     # NOTE
-    # A dictionary-based solution (see Clever Programmer tutorial and assignment README) will be preferred.
-    # Evaluation will be as follows:
-    # 1. Dictionary-based solution: 100%
-    # 2. Chain-of-if-statements solution: 80%
-
-    raise NotImplementedError
+    return {'rock': 0, 'paper': 1, 'scissors': 2, 'spock': 3,
+            'lizard': 4}[choice]
 
 
 def number_to_choice(number):
@@ -32,46 +28,50 @@ def number_to_choice(number):
 
     # TODO: Implement
     # NOTE
-    # A dictionary-based solution (see Clever Programmer tutorial and assignment README) will be preferred.
-    # Evaluation will be as follows:
-    # 1. Dictionary-based solution: 100%
-    # 2. Chain-of-if-statements solution: 80%
+    return {0: 'rock', 1: 'paper', 2: 'scissors', 3: 'spock',
+            4: 'lizard'}[number]
 
-    raise NotImplementedError
+
 
 
 def random_computer_choice():
     """Choose randomly for computer."""
 
     # TODO: Implement (Hint: Look up random.choice())
+    return random.choice(['rock', 'paper', 'scissors', 'spock', 'lizard'])
 
-    raise NotImplementedError
 
 
 def choice_result(human_move, computer_move):
     """Return the result of who wins.
     :param human_move: A string representing a move. One of
                          {'rock', 'paper', 'scissors', 'spock', 'lizard'}.
-    :param computer_move: A string representing a move.
-    :returns None. Modifies globals. Prints out result of last game.
+    M:PARAM COMPUTER_MOVE: A STRING REPRESENTING A MOVE.
+    :RETURNS NONE. MODIFIES GLOBALS. PRINTS OUT RESULT OF LAST GAME.
     """
 
     # DO NOT REMOVE THESE GLOBAL VARIABLE LINES.
     global COMPUTER_SCORE
     global HUMAN_SCORE
 
-    # TODO: Implement
-    # Based on the given human_choice and computer_choice,
-    # determine who won and increment their score by 1.
-    # In case of tie, don't increment anyone's score.
+    # todo: implement
+    computer_choice_number = choice_to_number(computer_choice)
+    human_choice_number = choice_to_number(human_choice)
 
-    # NOTE
-    # A modulo-based solution (see Clever Programmer tutorial and assignment README) will be preferred.
-    # Evaluation will be as follows:
-    # 1. Modulo-based solution: 100%
-    # 2. Chain-of-if-statements solution: 80%
+    if human_choice == computer_choice:
+        print("tie")
 
-    raise NotImplementedError
+    elif (human_choice_number - computer_choice_number) % 5 in [1, 3]:
+        print("Human wins!")
+        HUMAN_SCORE += 1
+
+    else:
+        print("Computer wins!")
+        COMPUTER_SCORE += 1
+
+
+
+
 
 
 # DO NOT REMOVE THESE TEST FUNCTIONS.
@@ -177,6 +177,7 @@ def get_user_input():
 
 def play_rps():
     global HUMAN_SCORE, COMPUTER_SCORE
+    global human_choice, computer_choice
 
     moves = {'r': rock,
              'p': paper,
@@ -194,6 +195,7 @@ def play_rps():
             move = moves.get(user_input)
             assert move is not None
             move()
+            print('You picked {}, computer picked {}'.format(human_choice, computer_choice))
             print('Score: Human {} : Computer {}'.format(HUMAN_SCORE, COMPUTER_SCORE))
 
 
